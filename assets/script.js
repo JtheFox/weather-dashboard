@@ -1,3 +1,4 @@
+const apiCall = dummydata;
 const weatherCities = ['New York City', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego']
 
 $(function() {
@@ -16,6 +17,7 @@ $(function() {
 
         // TODO: Add click rate limiter
 
-        console.log(`Searching for weather in ${searchVal}`)       
+        console.log(`Searching for weather in ${searchVal}`);
+        $('.weatherDisplay').text(searchVal);       
     });
 });
