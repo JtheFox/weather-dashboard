@@ -14,7 +14,7 @@ Weather Dashboard
 
 
 ## Visuals
-![Website Image]()
+![Website Image](assets/06-server-side-apis-homework-demo.png)
 
 ## Resources
 - [Live Site]()
