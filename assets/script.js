@@ -18,6 +18,16 @@ $(function() {
         // TODO: Add click rate limiter
 
         console.log(`Searching for weather in ${searchVal}`);
-        $('.weatherDisplay').text(searchVal);       
+        // api call
+        // display response
+        displayWeather(apiCall.response);
     });
 });
+
+const displayWeather = (data) => {
+    $('.city').text(`${data.location.name} ${data.location.localtime}`);
+    $('.currTemp').text(`${data.current.temp_f} °F`);
+    $('.currWind').text(`${data.current.wind_mph} MPH`);
+    $('.currHumidity').text(`${data.current.humidity}%`);
+    $('.currUV').text(data.current.uv);
+}
