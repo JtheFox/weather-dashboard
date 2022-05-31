@@ -25,9 +25,16 @@ $(function() {
 });
 
 const displayWeather = (data) => {
-    $('.city').text(`${data.location.name} ${data.location.localtime}`);
+    // display current weather values from api response
+    $('.city').text(`${data.location.name} ${parseLocalTime(data.location.localtime)}`);
     $('.currTemp').text(`${data.current.temp_f} °F`);
-    $('.currWind').text(`${data.current.wind_mph} MPH`);
+    $('.currWind').text(`${data.current.wind_mph} mph`);
     $('.currHumidity').text(`${data.current.humidity}%`);
     $('.currUV').text(data.current.uv);
+}
+
+const parseLocalTime = (date) => {
+    date = date.split(' ')[0].split('-')
+    date.push(date.shift());
+    return date.join('/');
 }
