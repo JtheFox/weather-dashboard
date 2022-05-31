@@ -26,7 +26,10 @@ $(function() {
 
 const displayWeather = (data) => {
     // display current weather values from api response
-    $('.city').text(`${data.location.name} ${parseLocalTime(data.location.localtime)}`);
+    $('.city').text(data.location.name);
+    $('.currDate').text(parseLocalTime(data.location.localtime));
+    $('.currWeatherIcon').attr('src', `https:${data.current.condition.icon}`).attr('alt', data.current.condition.text);
+    console.log(`https:${data.current.condition.icon}`);
     $('.currTemp').text(`${data.current.temp_f} °F`);
     $('.currWind').text(`${data.current.wind_mph} mph`);
     $('.currHumidity').text(`${data.current.humidity}%`);
