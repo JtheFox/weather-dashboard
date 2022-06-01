@@ -54,7 +54,7 @@ $(function() {
         const forecast = data.daily.slice(1,6)
         weatherData.current = {
             time: current.dt,
-            date: moment(current.dt).format(l),
+            date: moment.unix(current.dt).format("M/D/YYYY"),
             cond: current.weather[0].main,
             temp: current.temp,
             wind: current.wind_speed,
@@ -63,7 +63,7 @@ $(function() {
         }
         for (let day of forecast) {
             weatherData.forecast.push({
-                date: moment(day.dt).format(l),
+                date: moment(day.dt),
                 cond: day.weather[0].main,
                 temp: day.temp.day,
                 wind: day.wind_speed,
@@ -72,14 +72,15 @@ $(function() {
         }
 
         // display response
-        displayWeather(apiCall.response, apiCall.call);
+        console.log(weatherData)
+        displayWeather(weatherData);
     });
 });
 
 const displayWeather = (data) => {
     // display current weather values from api response
     $('.city').text(`${data.location.city}, ${data.location.country}`);
-    $('.currDate').text(data.location);
+    $('.currDate').text(`(${data.current.date})`);
     //TODO: Set up assigned icons for weather conditions
     $('.currWeatherIcon').attr('src', ``).attr('alt', ``);
     $('.currTemp').text(`${data.current.temp} °F`);
