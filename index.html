@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="jumbotron jumbotron-fluid p-3 text-center bg-primary">
+    <div class="jumbotron jumbotron-fluid px-3 pb-3 pt-2 forecastCard text-center bg-primary">
         <h1 class="display-4 text-light">Weather Dashboard</h1>
     </div>
     <div class="container-fluid">
@@ -47,14 +47,10 @@
                 <!-- Current weather display -->
                 <div class="col-12 justify-content-center">
                     <div class="d-flex flex-column weatherDisplay">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <p class="h3 city"></p>
-                            </div>
-                            <div class="col">
-                                <p class="h3 currDate"></p>
-                            </div>
-                            <div class="col"><img class="currWeatherIcon" src="" alt=""></div>
+                        <div class="d-flex align-items-center justify-content-start">
+                            <p class="h3 mr-2 city">City</p>
+                            <p class="h3 mr-2 currDate"></p>
+                            <img class="h3 currWeatherIcon" src="" alt="">
                         </div>
                         <p class="">Temp: <span class="currTemp"></span></p>
                         <p class="">Wind: <span class="currWind"></span></p>
@@ -63,7 +59,58 @@
                     </div>
                 </div>
                 <!-- Weather forecast display -->
-                <div class="col-12 justify-content-center">Weather Forecast</div>
+                <div class="col-12 justify-content-center">
+                    <div class="d-flex flex-column forecastDisplay">
+                        <p class="h3">5-Day Forecast</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="card px-3 pb-3 pt-2 forecastCard">
+                                <h5 class="card-title">Day 1</h5>
+                                <img src="" alt="" class="card-img">
+                                <p class="card-text">Temp: <span class="forecastTemp"></span></p>
+                                <p class="card-text">Wind: <span class="forecastWind"></span></p>
+                                <p class="card-text">Humidity: <span class="forecastHumidity"></span></p> 
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card px-3 pb-3 pt-2 forecastCard">
+                                <h5 class="card-title">Day 1</h5>
+                                <img src="" alt="" class="card-img">
+                                <p class="card-text">Temp: <span class="forecastTemp"></span></p>
+                                <p class="card-text">Wind: <span class="forecastWind"></span></p>
+                                <p class="card-text">Humidity: <span class="forecastHumidity"></span></p> 
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card px-3 pb-3 pt-2 forecastCard">
+                                <h5 class="card-title">Day 1</h5>
+                                <img src="" alt="" class="card-img">
+                                <p class="card-text">Temp: <span class="forecastTemp"></span></p>
+                                <p class="card-text">Wind: <span class="forecastWind"></span></p>
+                                <p class="card-text">Humidity: <span class="forecastHumidity"></span></p> 
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card px-3 pb-3 pt-2 forecastCard">
+                                <h5 class="card-title">Day 1</h5>
+                                <img src="" alt="" class="card-img">
+                                <p class="card-text">Temp: <span class="forecastTemp"></span></p>
+                                <p class="card-text">Wind: <span class="forecastWind"></span></p>
+                                <p class="card-text">Humidity: <span class="forecastHumidity"></span></p> 
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card px-3 pb-3 pt-2 forecastCard">
+                                <h5 class="card-title">Day 1</h5>
+                                <img src="" alt="" class="card-img">
+                                <p class="card-text">Temp: <span class="forecastTemp"></span></p>
+                                <p class="card-text">Wind: <span class="forecastWind"></span></p>
+                                <p class="card-text">Humidity: <span class="forecastHumidity"></span></p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
