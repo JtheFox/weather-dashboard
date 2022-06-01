@@ -9,9 +9,9 @@ $(function() {
         // TODO: Add click rate limiter
         
         // get search parameter
-        let searchVal = $(event.target).val().replaceAll(/\s+/g, ' ');
+        let searchVal = $(event.target).text().replaceAll(/\s+/g, ' ');
         // check if user clicked searchbar button
-        if (!searchVal) {
+        if (!searchVal || /^Search$/.test(searchVal)) {
             searchVal = $('.searchInput').val();
             $('.searchInput').val('');
         } 
@@ -69,13 +69,14 @@ $(function() {
                     wind: day.wind_speed,
                     humidity: day.humidity
                 });
-                // store search in localStorage
-                let history = JSON.parse(localStorage.getItem('history')) || [];
-                history.unshift(weatherData)
-                if (history.length === historyLength) history.pop();
-                localStorage.setItem('history', JSON.stringify(history));
                 // display response
                 displayWeather(weatherData);
+                // store search in localStorage
+                let history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+                if (history.find(e => e.location.city === weatherData.location.city)) return;
+                history.unshift(weatherData)
+                if (history.length === historyLength) history.pop();
+                localStorage.setItem('weatherHistory', JSON.stringify(history));
                 // add to search history buttons
                 historyButtons();
             })
@@ -109,8 +110,9 @@ const displayWeather = (data) => {
 }
 
 const historyButtons = () => {
-       // display last city called, fetch new data if it's been an hour+ since 
-       let cityHistory = JSON.parse(localStorage.getItem('history')) || [];
-       for (const [i, data] of cityHistory.entries()) $($('.cityBtn')[i]).text(data.location.city);
-       if (cityHistory[0]) displayWeather(cityHistory[0]);
+    $('.historyBtns').html('');
+    // display last city called, fetch new data if it's been an hour+ since 
+    let cityHistory = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+    for (const data of cityHistory) $('.historyBtns').append(`<div class="btn btn-secondary my-1 w-75 searchBtn cityBtn" value="${data.location.city}">${data.location.city}</div>`);
+    if (cityHistory[0]) displayWeather(cityHistory[0]);
 }
