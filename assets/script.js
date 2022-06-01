@@ -1,5 +1,5 @@
 const apiCall = dummydata;
-const apiKey = '';
+const apiKey = 'c83927aa6d875367b080fc58ae45ad67';
 const weatherCities = ['New York City', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego']
 
 $(function() {
@@ -21,63 +21,62 @@ $(function() {
             $('.searchInput').val('');
         } 
         if (searchVal.length < 4) {
-            // display invalid search criteria error
+            // TODO: display invalid search criteria error
             return;
         }
-                
-        // parse search text
-        const geoParam = searchVal.replaceAll(', ', ',')
-        // geocoding api call
-        const weatherData = { 
+        // create weatherData object
+        let weatherData = { 
             location: {},
             current: {},
             forecast: [] 
-        };
-        // fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${geoParam}&limit=1&appid=${apikey}`)
-        //     .then(response => response.json())
-        //     .then(data => {})
-        //     .catch(err => console.log(err));
-        let data = apiCall.geocoding.response
-        weatherData.location = {
-            city: data.name,
-            state: data.state,
-            country: data.country,
-            coords: [data.lat, data.lon]
-        }
-
-        // weather api call
-        // fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData.location.coords[0]}&lon=${weatherData.location.coords[0]}&exclude=hourly,minutely&units=imperial&appid={apikey}`)
-        //     .then(response => response.json())
-        //     .then(data => {})
-        //     .catch(err => console.log(err));
-        data = apiCall.onecall.response;
-        const current = data.current;
-        const forecast = data.daily.slice(1,6)
-        weatherData.current = {
-            time: current.dt,
-            date: moment.unix(current.dt).format("M/D/YYYY"),
-            cond: {
-                icon: `http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`,
-                desc: current.weather[0].description,
-            },
-            temp: current.temp,
-            wind: current.wind_speed,
-            humidity: current.humidity,
-            uv: current.uvi
-        }
-        for (let day of forecast) {
-            weatherData.forecast.push({
-                date: moment.unix(day.dt).format("M/D/YYYY"),
-                cond: {
-                    icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
-                    desc: day.weather[0].description,
-                },
-                temp: day.temp.day,
-                wind: day.wind_speed,
-                humidity: day.humidity
-            });
-        }
-        // store search in localStorage
+        };                
+        // parse search text
+        let geoParam = searchVal.replaceAll(', ', ',');
+        geoParam = geoParam.replaceAll(' ', '%20')
+        const url = 'http://api.openweathermap.org'
+        // geocoding api call
+        fetch(`${url}/geo/1.0/direct?q=${geoParam}&limit=1&appid=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                data = data[0];
+                weatherData.location = {
+                    city: data.name,
+                    state: data.state,
+                    country: data.country,
+                    coords: [data.lat, data.lon]
+                }
+                return fetch(`${url}/data/2.5/onecall?lat=${data.lat}&lon=${data.lon}&exclude=hourly,minutely&units=imperial&appid=${apiKey}`);
+            })
+            .then(response => response.json())
+            .then(data => {
+                const current = data.current;
+                const forecast = data.daily.slice(1,6);
+                weatherData.current = {
+                    time: current.dt,
+                    date: moment.unix(current.dt).format("M/D/YYYY"),
+                    cond: {
+                        icon: `http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`,
+                        desc: current.weather[0].description,
+                    },
+                    temp: current.temp,
+                    wind: current.wind_speed,
+                    humidity: current.humidity,
+                    uv: current.uvi
+                }
+                for (let day of forecast) weatherData.forecast.push({
+                    date: moment.unix(day.dt).format("M/D/YYYY"),
+                    cond: {
+                        icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
+                        desc: day.weather[0].description,
+                    },
+                    temp: day.temp.day,
+                    wind: day.wind_speed,
+                    humidity: day.humidity
+                });
+            })
+            .catch(err => console.log(err));
+        
+        //TODO: store search in localStorage
 
         // display response
         displayWeather(weatherData);
@@ -85,6 +84,7 @@ $(function() {
 });
 
 const displayWeather = (data) => {
+    console.log(data);
     // display current weather values from api response
     $('.city').text(`${data.location.city}, ${data.location.country}`);
     $('.currDate').text(`(${data.current.date})`);
