@@ -1,6 +1,9 @@
 /* Would be cool to create a sunrise/sunset animation in the jumbotron */
+body {
+    background-color: lightgray;
+}
 
-.currWeatherIcon {
-    max-height: 40px;
+.currWeatherIcon, .forecastImg {
+    max-height: 4rem;
     width: auto;
 }
