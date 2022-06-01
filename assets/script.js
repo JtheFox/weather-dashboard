@@ -45,9 +45,9 @@ const displayWeather = (data, call) => {
     $('.city').text();
     $('.currDate').text();
     $('.currWeatherIcon').attr('src', ``).attr('alt', ``);
-    console.log(`https:${}`);
-    $('.currTemp').text(`${} °F`);
-    $('.currWind').text(`${} mph`);
-    $('.currHumidity').text(`${}%`);
+    console.log(`https:${apiKey}`);
+    $('.currTemp').text(`${apiKey} °F`);
+    $('.currWind').text(`${apiKey} mph`);
+    $('.currHumidity').text(`${apiKey}%`);
     $('.currUV').text();
 }
