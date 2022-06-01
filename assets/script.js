@@ -1,12 +1,12 @@
 const apiCall = dummydata;
 const apiKey = '';
 const weatherCities = ['New York City', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego']
-//TODO: Set up assigned icons for weather conditions
 
 $(function() {
     // add predefined cities to city search buttons
     $('.cityBtn').each((i, btn) => $(btn).text(weatherCities[i]).val(weatherCities[i]));
 
+    //TODO: Set leftside buttons to stored history, display last search
     // display last city called, fetch new data if it's been an hour+ since fetched
 
     // create click event for search buttons
@@ -56,7 +56,10 @@ $(function() {
         weatherData.current = {
             time: current.dt,
             date: moment.unix(current.dt).format("M/D/YYYY"),
-            cond: current.weather[0].main,
+            cond: {
+                icon: `http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`,
+                desc: current.weather[0].description,
+            },
             temp: current.temp,
             wind: current.wind_speed,
             humidity: current.humidity,
@@ -65,15 +68,18 @@ $(function() {
         for (let day of forecast) {
             weatherData.forecast.push({
                 date: moment.unix(day.dt).format("M/D/YYYY"),
-                cond: day.weather[0].main,
+                cond: {
+                    icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
+                    desc: day.weather[0].description,
+                },
                 temp: day.temp.day,
                 wind: day.wind_speed,
                 humidity: day.humidity
             });
         }
+        // store search in localStorage
 
         // display response
-        console.log(weatherData)
         displayWeather(weatherData);
     });
 });
@@ -82,7 +88,7 @@ const displayWeather = (data) => {
     // display current weather values from api response
     $('.city').text(`${data.location.city}, ${data.location.country}`);
     $('.currDate').text(`(${data.current.date})`);
-    $('.currWeatherIcon').attr('src', ``).attr('alt', ``);
+    $('.currWeatherIcon').attr('src', data.current.cond.icon).attr('alt', data.current.cond.desc);
     $('.currTemp').text(`${data.current.temp} °F`);
     $('.currWind').text(`${data.current.wind} mph`);
     $('.currHumidity').text(`${data.current.humidity}%`);
@@ -92,7 +98,7 @@ const displayWeather = (data) => {
     $('.forecastCard').each((i, card) => {
         let forecastData = data.forecast[i];
         $(card).find('.forecastDate').text(forecastData.date);
-        $(card).find('.forecastImg').attr('src', ``).attr('alt', ``);
+        $(card).find('.forecastImg').attr('src', forecastData.cond.icon).attr('alt', forecastData.cond.desc);
         $(card).find('.forecastTemp').text(forecastData.temp);
         $(card).find('.forecastWind').text(forecastData.wind);
         $(card).find('.forecastHumidity').text(forecastData.humidity);
