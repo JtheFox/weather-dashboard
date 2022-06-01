@@ -1,13 +1,12 @@
 const apiKey = 'c83927aa6d875367b080fc58ae45ad67';
-const weatherCities = ['New York City', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego']
+const historyLength = 8;
 
 $(function() {
-    // add predefined cities to city search buttons
-    $('.cityBtn').each((i, btn) => $(btn).text(weatherCities[i]).val(weatherCities[i]));
-
-    //TODO: Set leftside buttons to stored history, display last search
-    // display last city called, fetch new data if it's been an hour+ since fetched
-
+    // display last city called, fetch new data if it's been an hour+ since 
+    let cityHistory = JSON.parse(localStorage.getItem('history')) || [];
+    console.log(cityHistory)
+    for (const [i, data] of cityHistory) $($('.cityBtn')[i]).text(data.location.city)
+    if (cityHistory[0]) displayWeather(cityHistory[0])
     // create click event for search buttons
     $('.searchBtn').on('click', function(event) {
         // TODO: Add click rate limiter
@@ -73,8 +72,12 @@ $(function() {
                     wind: day.wind_speed,
                     humidity: day.humidity
                 });
-                //TODO: store search in localStorage
-
+                // store search in localStorage
+                let history = JSON.parse(localStorage.getItem('history')) || [];
+                if (!history.length) history.push(weatherData)
+                else history.shift(weatherData)
+                if (history.length >= historyLength) history = history.slice(0,8);
+                localStorage.setItem('history', JSON.stringify(history));
                 // display response
                 displayWeather(weatherData);
             })
