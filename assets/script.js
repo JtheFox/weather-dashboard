@@ -1,4 +1,3 @@
-const apiCall = dummydata;
 const apiKey = 'c83927aa6d875367b080fc58ae45ad67';
 const weatherCities = ['New York City', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego']
 
