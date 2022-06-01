@@ -87,7 +87,6 @@ $(function() {
 });
 
 const displayWeather = (data) => {
-    console.log(data);
     // display current weather values from api response
     $('.city').text(`${data.location.city}, ${data.location.country}`);
     $('.currDate').text(`(${data.current.date})`);
