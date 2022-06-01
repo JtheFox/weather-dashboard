@@ -17,5 +17,5 @@ Weather Dashboard
 ![Website Image](assets/06-server-side-apis-homework-demo.png)
 
 ## Resources
-- [Live Site)[https://jthefox.github.io/weather-dashboard/]
+- [Live Site](https://jthefox.github.io/weather-dashboard/]
 - [Online Repository](https://github.com/JtheFox/weather-dashboard)
