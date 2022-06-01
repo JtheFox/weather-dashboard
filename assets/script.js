@@ -1,43 +1,53 @@
 const apiCall = dummydata;
+const apiKey = '';
 const weatherCities = ['New York City', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego']
 
 $(function() {
     // add predefined cities to city search buttons
     $('.cityBtn').each((i, btn) => $(btn).text(weatherCities[i]).val(weatherCities[i]));
 
+    // display last city called, fetch new data if it's been an hour+ since fetched
+
     // create click event for search buttons
     $('.searchBtn').on('click', function(event) {
-        // get city name for api call
-        let searchVal = $(event.target).val();
+        // TODO: Add click rate limiter
+        
+        // get search parameter
+        let searchVal = $(event.target).val().replaceAll(/\s+/g, ' ');
         // check if user clicked searchbar button
         if (!searchVal) {
             searchVal = $('.searchInput').val();
             $('.searchInput').val('');
+        } 
+        if (searchVal.length < 4) {
+            // display invalid search criteria error
+            return;
         }
+                
+        // parse search text
+        const geoParam = searchVal.replaceAll(', ', ',')
+        // geocoding api call
+        const weatherData = {};
+        // fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${geoParam}&limit=1&appid=${apikey}`)
+        //     .then(response => response.json())
+        //     .then(data => weatherData.location = { })
+        //     .catch(err => console.log(err));
 
-        // TODO: Add click rate limiter
+        // weather api call
 
-        console.log(`Searching for weather in ${searchVal}`);
-        // api call
         // display response
-        displayWeather(apiCall.response);
+        displayWeather(apiCall.response, apiCall.call);
     });
 });
 
-const displayWeather = (data) => {
+const displayWeather = (data, call) => {
     // display current weather values from api response
-    $('.city').text(data.location.name);
-    $('.currDate').text(parseLocalTime(data.location.localtime));
-    $('.currWeatherIcon').attr('src', `https:${data.current.condition.icon}`).attr('alt', data.current.condition.text);
-    console.log(`https:${data.current.condition.icon}`);
-    $('.currTemp').text(`${data.current.temp_f} °F`);
-    $('.currWind').text(`${data.current.wind_mph} mph`);
-    $('.currHumidity').text(`${data.current.humidity}%`);
-    $('.currUV').text(data.current.uv);
-}
-
-const parseLocalTime = (date) => {
-    date = date.split(' ')[0].split('-')
-    date.push(date.shift());
-    return date.join('/');
+    $('.city').text();
+    $('.currDate').text();
+    $('.currWeatherIcon').attr('src', ``).attr('alt', ``);
+    console.log(`https:${}`);
+    $('.currTemp').text(`${} °F`);
+    $('.currWind').text(`${} mph`);
+    $('.currHumidity').text(`${}%`);
+    $('.currUV').text();
 }

@@ -1,1 +1,6 @@
-/* Would be cool to create a sunrise/sunset animation in the jum */
+/* Would be cool to create a sunrise/sunset animation in the jumbotron */
+
+.currWeatherIcon {
+    max-height: 40px;
+    width: auto;
+}
