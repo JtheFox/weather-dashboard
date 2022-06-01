@@ -38,6 +38,7 @@ $(function() {
         fetch(`${url}/geo/1.0/direct?q=${geoParam}&limit=1&appid=${apiKey}`)
             .then(response => response.json())
             .then(data => {
+                if (!data[0]) throw 'No results found';
                 data = data[0];
                 weatherData.location = {
                     city: data.name,
@@ -73,13 +74,16 @@ $(function() {
                     wind: day.wind_speed,
                     humidity: day.humidity
                 });
-            })
-            .catch(err => console.log(err));
-        
-        //TODO: store search in localStorage
+                //TODO: store search in localStorage
 
-        // display response
-        displayWeather(weatherData);
+                // display response
+                displayWeather(weatherData);
+            })
+            .catch(err => {
+                console.error(err);
+                //TODO: display error on page
+                return;
+            });
     });
 });
 
