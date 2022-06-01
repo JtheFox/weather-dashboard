@@ -32,7 +32,7 @@ $(function() {
         // parse search text
         let geoParam = searchVal.replaceAll(', ', ',');
         geoParam = geoParam.replaceAll(' ', '%20')
-        const url = 'http://api.openweathermap.org'
+        const url = 'https://api.openweathermap.org'
         // geocoding api call
         fetch(`${url}/geo/1.0/direct?q=${geoParam}&limit=1&appid=${apiKey}`)
             .then(response => response.json())
@@ -55,7 +55,7 @@ $(function() {
                     time: current.dt,
                     date: moment.unix(current.dt).format("M/D/YYYY"),
                     cond: {
-                        icon: `http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`,
+                        icon: `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`,
                         desc: current.weather[0].description,
                     },
                     temp: current.temp,
@@ -66,7 +66,7 @@ $(function() {
                 for (let day of forecast) weatherData.forecast.push({
                     date: moment.unix(day.dt).format("M/D/YYYY"),
                     cond: {
-                        icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
+                        icon: `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
                         desc: day.weather[0].description,
                     },
                     temp: day.temp.day,
