@@ -5,9 +5,7 @@ $(function() {
     // set previously searched city buttons on load
     historyButtons();
     // create click event for search buttons
-    $('.searchBtn').on('click', function(event) {
-        // TODO: Add click rate limiter
-        
+    $('.searchBtn').on('click', function(event) {   
         // get search parameter
         let searchVal = $(event.target).text().replaceAll(/\s+/g, ' ');
         // check if user clicked searchbar button
@@ -15,8 +13,8 @@ $(function() {
             searchVal = $('.searchInput').val();
             $('.searchInput').val('');
         } 
-        if (searchVal.length < 4) {
-            // TODO: display invalid search criteria error
+        if (searchVal.length < 3) {
+            alert('Search criteria must be at least 4 characters')
             return;
         }
         // create weatherData object
@@ -82,8 +80,8 @@ $(function() {
             })
             .catch(err => {
                 console.error(err);
-                //TODO: display error on page
-                return;
+                if (err === 'No results found') alert(err);
+                else alert ('There was an issue with your search request');
             });
     });
 });
@@ -96,6 +94,7 @@ const displayWeather = (data) => {
     $('.currTemp').text(`${data.current.temp} °F`);
     $('.currWind').text(`${data.current.wind} mph`);
     $('.currHumidity').text(`${data.current.humidity}%`);
+    //TODO: Style uv index
     $('.currUV').text(data.current.uv);
 
     // display forecast weather on cards
@@ -111,7 +110,7 @@ const displayWeather = (data) => {
 
 const historyButtons = () => {
     $('.historyBtns').html('');
-    // display last city called, fetch new data if it's been an hour+ since 
+    // display last 8 cities of search history as buttons
     let cityHistory = JSON.parse(localStorage.getItem('weatherHistory')) || [];
     for (const data of cityHistory) $('.historyBtns').append(`<div class="btn btn-secondary my-1 w-75 searchBtn cityBtn" value="${data.location.city}">${data.location.city}</div>`);
     if (cityHistory[0]) displayWeather(cityHistory[0]);
