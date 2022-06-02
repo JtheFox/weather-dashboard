@@ -11,3 +11,30 @@ body {
     border-radius: 0.15rem;
     padding: 0.1rem 0.2rem 0.2rem;
 }
+
+@media (max-width: 576px) { 
+    html {
+        font-size: 0.7rem;
+    }
+
+    .jumbotron {
+        margin-bottom: 0.5rem;
+    }
+
+    .historyBtns, .weatherDisplay {
+        margin-bottom: 2rem;
+    }
+
+    .weatherCity {
+        justify-content: center !important;
+    }
+
+    .weatherDisplay, .card-body {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .forecastDisplay > p.h3 {
+        text-align: center;
+    }
+}

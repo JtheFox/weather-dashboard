@@ -12,9 +12,7 @@
 </head>
 
 <body>
-    <!-- TODO: Reduce jumbotron margin bottom on mobile -->
     <div class="jumbotron jumbotron-fluid p-3 text-center bg-primary">
-        <!-- TODO: Make text size smaller on mobile -->
         <h1 class="display-4 text-light">Weather Dashboard</h1>
     </div>
     <div class="container-fluid">
@@ -23,7 +21,7 @@
             <div class="col-12 col-lg-3">
                 <!-- Search area -->
                 <div class="col-12 mb-3">
-                    <div class="d-flex flex-column justify-content-center align-items-center p-1">
+                    <div class="d-flex flex-column justify-content-center align-items-center p-1 textSearch">
                         <label for="search-bar" class="m-1 h3">Search for a city:</label>
                         <!-- TODO: Add notice to separate fields by comma -->
                         <input type="text" name="search-bar" class="form-control mb-2 w-75 searchInput">
@@ -40,7 +38,7 @@
                 <!-- Current weather display -->
                 <div class="col-12 justify-content-center">
                     <div class="d-flex flex-column weatherDisplay">
-                        <div class="d-flex align-items-center justify-content-start">
+                        <div class="d-flex align-items-center justify-content-start weatherCity">
                             <p class="h3 mr-2 city">City</p>
                             <p class="h3 mr-2 currDate"></p>
                             <img class="h3 currWeatherIcon mb-0" src="" alt="">
