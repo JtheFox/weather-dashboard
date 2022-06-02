@@ -94,9 +94,12 @@ const displayWeather = (data) => {
     $('.currTemp').text(`${data.current.temp} °F`);
     $('.currWind').text(`${data.current.wind} mph`);
     $('.currHumidity').text(`${data.current.humidity}%`);
-    //TODO: Style uv index
     $('.currUV').text(data.current.uv);
-
+    $('.currUV').css('color', 'white')
+    if (data.current.uv < 3) $('.currUV').css('background-color','var(--green)');
+    else if (data.current.uv < 6) $('.currUV').css({'background-color': 'var(--yellow)', 'color': 'black'});
+    else if (data.current.uv < 8) $('.currUV').css('background-color','var(--orange)');
+    else $('.currUV').css('background-color','var(--red)');
     // display forecast weather on cards
     $('.forecastCard').each((i, card) => {
         let forecastData = data.forecast[i];

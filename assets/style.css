@@ -1,4 +1,3 @@
-/* Would be cool to create a sunrise/sunset animation in the jumbotron */
 body {
     background-color: lightgray;
 }
@@ -6,4 +5,9 @@ body {
 .currWeatherIcon, .forecastImg {
     max-height: 4rem;
     width: auto;
+}
+
+.currUV {
+    border-radius: 0.15rem;
+    padding: 0.1rem 0.2rem 0.2rem;
 }
