@@ -13,7 +13,7 @@ $(function() {
             searchVal = $('.searchInput').val();
             $('.searchInput').val('');
         } 
-        if (searchVal.length < 3) {
+        if (searchVal.length < 4) {
             alert('Search criteria must be at least 4 characters')
             return;
         }
